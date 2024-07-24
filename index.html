@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <section>
+    <section class="deactive">
       <h1>ورود</h1>
 
       <div class="container">
@@ -61,6 +61,58 @@
         </div>
 
         <a href="#">هنوز ثبت نام نکرده‌اید؟</a>
+      </div>
+    </section>
+
+    <section class="active">
+      <h1>ثبت نام</h1>
+
+      <div class="container">
+        <p>لطفا موارد زیر را وارد نمائید.</p>
+
+        <input
+          type="text"
+          name="register-username"
+          class="login-register-input"
+          placeholder="نام کاربری"
+        />
+        <input
+          type="email"
+          name="register-email"
+          class="login-register-input"
+          placeholder="ایمیل"
+        />
+        <input
+          type="password"
+          name="register-password"
+          class="login-register-input"
+          placeholder="رمز عبور"
+        />
+        <input
+          type="password"
+          name="register-password-validation"
+          class="login-register-input"
+          placeholder="تایید رمز عبور"
+        />
+
+        <input
+          type="submit"
+          value="ثبت نام"
+          class="login-register-btn"
+          id="register-btn"
+        />
+
+        <div class="social-networks-login-register">
+          <p>ثبت نام از طریق:</p>
+
+          <div>
+            <a href="#" class="fa fa-google"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <a href="#" class="fa fa-twitter"></a>
+          </div>
+
+          <a href="#">حساب کاربری دارید؟</a>
+        </div>
       </div>
     </section>
 
