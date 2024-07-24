@@ -1,0 +1,139 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "IRANYekanX-Regular";
+  font-size: 1rem;
+  border: none;
+}
+
+@font-face {
+  font-family: "IRANYekanX-Regular";
+  src: url(font/IRANYekanXFaNum-Regular.woff2);
+}
+
+@font-face {
+  font-family: "IRANYekanX-Bold";
+  src: url(font/IRANYekanXFaNum-Bold.woff2);
+}
+
+.active {
+  animation: fade-in 0.5s forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.deactive {
+  animation: fade-out 0.5s forwards;
+  display: none;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+body {
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: clamp(320px, 100svw, 480px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+}
+
+.container > p {
+  margin-bottom: 30px;
+}
+
+.login-register-input {
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  outline: none;
+}
+
+#remember-me-and-password-recovery-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 30px;
+}
+
+#remember-me-container {
+  display: flex;
+}
+
+#remember-me-container input {
+  margin-left: 5px;
+}
+
+#remember-me-container input,
+#remember-me-container label {
+  cursor: pointer;
+}
+
+.login-register-btn {
+  width: 50%;
+  background-color: #eee;
+  padding: 10px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.social-networks-login-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-networks-login-register > p {
+  margin-bottom: 10px;
+}
+
+.fa {
+  background-color: #eee;
+  color: #000;
+  padding: 20px;
+  margin: 0 2px 50px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 50px;
+}
