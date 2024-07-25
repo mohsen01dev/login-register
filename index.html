@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <section class="deactive">
+    <section class="active" id="login-page">
       <h1>ورود</h1>
 
       <div class="container">
@@ -45,9 +45,9 @@
 
         <input
           type="submit"
-          name="login-btn"
           value="ورود"
           class="login-register-btn"
+          id="login-btn"
         />
 
         <div class="social-networks-login-register">
@@ -60,11 +60,11 @@
           </div>
         </div>
 
-        <a href="#">هنوز ثبت نام نکرده‌اید؟</a>
+        <a href="#" id="register-page-text">هنوز ثبت نام نکرده‌اید؟</a>
       </div>
     </section>
 
-    <section class="active">
+    <section class="deactive" id="register-page">
       <h1>ثبت نام</h1>
 
       <div class="container">
@@ -95,12 +95,7 @@
           placeholder="تایید رمز عبور"
         />
 
-        <input
-          type="submit"
-          value="ثبت نام"
-          class="login-register-btn"
-          id="register-btn"
-        />
+        <input type="submit" value="ثبت نام" class="login-register-btn" />
 
         <div class="social-networks-login-register">
           <p>ثبت نام از طریق:</p>
