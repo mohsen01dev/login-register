@@ -15,10 +15,13 @@
   </head>
 
   <body>
+    <!-- Login form -->
     <section class="active" id="login-page">
       <h1>ورود</h1>
 
+      <!-- Login page container -->
       <div class="container">
+        <!-- Login form inputs and button -->
         <p>لطفا موارد زیر را وارد نمائید.</p>
 
         <input
@@ -50,6 +53,7 @@
           id="login-btn"
         />
 
+        <!-- Social networks login -->
         <div class="social-networks-login-register">
           <p>ورود از طریق:</p>
 
@@ -60,14 +64,17 @@
           </div>
         </div>
 
+        <!-- Link to registration page -->
         <a href="#" id="register-page-text">هنوز ثبت نام نکرده‌اید؟</a>
       </div>
     </section>
 
+    <!-- Registration form -->
     <section class="deactive" id="register-page">
       <h1>ثبت نام</h1>
 
       <div class="container">
+        <!-- Registration form inputs and button -->
         <p>لطفا موارد زیر را وارد نمائید.</p>
 
         <input
@@ -90,23 +97,30 @@
         />
         <input
           type="password"
-          name="register-password-validation"
+          name="register-password-validate"
           class="login-register-input"
           placeholder="تایید رمز عبور"
         />
 
-        <input type="submit" value="ثبت نام" class="login-register-btn" />
+        <input
+          type="submit"
+          value="ثبت نام"
+          class="login-register-btn"
+          id="register-btn"
+        />
 
+        <!-- Social networks registration -->
         <div class="social-networks-login-register">
           <p>ثبت نام از طریق:</p>
 
           <div>
-            <a href="#" class="fa fa-google"></a>
-            <a href="#" class="fa fa-linkedin"></a>
-            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-google" id="google-register"></a>
+            <a href="#" class="fa fa-linkedin" id="linkedin-register"></a>
+            <a href="#" class="fa fa-twitter" id="twitter-register"></a>
           </div>
 
-          <a href="#">حساب کاربری دارید؟</a>
+          <!-- Link to login page -->
+          <a href="#" id="login-page-text">حساب کاربری دارید؟</a>
         </div>
       </div>
     </section>
