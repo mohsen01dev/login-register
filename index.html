@@ -16,42 +16,39 @@
 
   <body>
     <!-- Login form -->
-    <section class="active" id="login-page">
+    <section class="active" id="login-form">
       <h1>ورود</h1>
 
-      <!-- Login page container -->
+      <!-- Login form container -->
       <div class="container">
         <!-- Login form inputs and button -->
         <p>لطفا موارد زیر را وارد نمائید.</p>
 
-        <input
-          type="text"
-          name="login-username"
-          class="login-register-input"
-          placeholder="نام کاربری یا ایمیل"
-        />
-        <input
-          type="password"
-          name="login-password"
-          class="login-register-input"
-          placeholder="رمز عبور"
-        />
+        <form action="#" id="login-form-inputs">
+          <input
+            type="text"
+            name="login-username"
+            class="login-register-input"
+            placeholder="نام کاربری یا ایمیل"
+          />
+          <input
+            type="password"
+            name="login-password"
+            class="login-register-input"
+            placeholder="رمز عبور"
+          />
 
-        <div id="remember-me-and-password-recovery-container">
-          <div id="remember-me-container">
-            <input type="checkbox" name="remember-me" id="remember-me" />
-            <label for="remember-me">مرا به خاطر بسپار</label>
+          <div id="remember-me-and-password-recovery-container">
+            <div id="remember-me-container">
+              <input type="checkbox" name="remember-me" id="remember-me" />
+              <label for="remember-me">مرا به خاطر بسپار</label>
+            </div>
+
+            <a href="#" id="forgot-password">رمز عبور خود را فراموش کرده‌ام</a>
           </div>
 
-          <a href="#">رمز عبور خود را فراموش کرده‌ام</a>
-        </div>
-
-        <input
-          type="submit"
-          value="ورود"
-          class="login-register-btn"
-          id="login-btn"
-        />
+          <input type="submit" value="ورود" class="btn" id="login-btn" />
+        </form>
 
         <!-- Social networks login -->
         <div class="social-networks-login-register">
@@ -64,50 +61,71 @@
           </div>
         </div>
 
-        <!-- Link to registration page -->
-        <a href="#" id="register-page-text">هنوز ثبت نام نکرده‌اید؟</a>
+        <!-- Link to registration form -->
+        <a href="#" id="register-form-text">هنوز ثبت نام نکرده‌اید؟</a>
+      </div>
+
+      <!-- default users container -->
+      <div class="container" id="default-users">
+        <h2>کاربران پیش‌فرض</h2>
+
+        <div id="users-information">
+          <p><b>نام کاربری:</b> Mohsen</p>
+          <p><b>ایمیل:</b> mohsen@gmail.com</p>
+          <p><b>رمز عبور:</b> Abc@1234</p>
+
+          <p>--------------------</p>
+
+          <p><b>نام کاربری:</b> Mohammad</p>
+          <p><b>ایمیل:</b> mohammad@gmail.com</p>
+          <p><b>رمز عبور:</b> aBc@1234</p>
+
+          <p>--------------------</p>
+
+          <p><b>نام کاربری:</b> Hassan</p>
+          <p><b>ایمیل:</b> hassan@gmail.com</p>
+          <p><b>رمز عبور:</b> abC@1234</p>
+        </div>
       </div>
     </section>
 
     <!-- Registration form -->
-    <section class="deactive" id="register-page">
+    <section class="deactive" id="register-form">
       <h1>ثبت نام</h1>
 
+      <!-- Registration form container -->
       <div class="container">
         <!-- Registration form inputs and button -->
         <p>لطفا موارد زیر را وارد نمائید.</p>
 
-        <input
-          type="text"
-          name="register-username"
-          class="login-register-input"
-          placeholder="نام کاربری"
-        />
-        <input
-          type="email"
-          name="register-email"
-          class="login-register-input"
-          placeholder="ایمیل"
-        />
-        <input
-          type="password"
-          name="register-password"
-          class="login-register-input"
-          placeholder="رمز عبور"
-        />
-        <input
-          type="password"
-          name="register-password-validate"
-          class="login-register-input"
-          placeholder="تایید رمز عبور"
-        />
+        <form action="#" id="register-form-inputs">
+          <input
+            type="text"
+            name="register-username"
+            class="login-register-input"
+            placeholder="نام کاربری"
+          />
+          <input
+            type="email"
+            name="register-email"
+            class="login-register-input"
+            placeholder="ایمیل"
+          />
+          <input
+            type="password"
+            name="register-password"
+            class="login-register-input"
+            placeholder="رمز عبور"
+          />
+          <input
+            type="password"
+            name="register-password-validate"
+            class="login-register-input"
+            placeholder="تایید رمز عبور"
+          />
 
-        <input
-          type="submit"
-          value="ثبت نام"
-          class="login-register-btn"
-          id="register-btn"
-        />
+          <input type="submit" value="ثبت نام" class="btn" id="register-btn" />
+        </form>
 
         <!-- Social networks registration -->
         <div class="social-networks-login-register">
@@ -119,9 +137,29 @@
             <a href="#" class="fa fa-twitter" id="twitter-register"></a>
           </div>
 
-          <!-- Link to login page -->
-          <a href="#" id="login-page-text">حساب کاربری دارید؟</a>
+          <!-- Link to login form -->
+          <a href="#" id="login-form-text">حساب کاربری دارید؟</a>
         </div>
+      </div>
+    </section>
+
+    <!-- Display welcome message upon successful login -->
+    <section class="deactive" id="login-welcome-form">
+      <h1>خوش آمدید</h1>
+
+      <div class="container">
+        <p id="successful-login-message"></p>
+        <button class="btn" id="exit-btn">خروج</button>
+      </div>
+    </section>
+
+    <!-- Display registration successful message -->
+    <section class="deactive" id="register-successful-form">
+      <h1>ثبت نام موفق</h1>
+
+      <div class="container">
+        <p id="successful-registeration-message"></p>
+        <button class="btn" id="acknowledge-btn">متوجه شدم</button>
       </div>
     </section>
 

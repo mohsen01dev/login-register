@@ -45,11 +45,16 @@
 }
 
 body {
-  height: 100svh;
+  min-height: 100svh;
+  padding: 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #f5f5f5;
+}
+
+form {
+  text-align: center;
 }
 
 h1 {
@@ -58,12 +63,16 @@ h1 {
   margin-bottom: 20px;
 }
 
+h2 {
+  font-size: 1.25rem;
+}
+
 a {
   text-decoration: none;
 }
 
 .container {
-  width: clamp(320px, 100svw, 480px);
+  width: clamp(320px, 90svw, 480px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,11 +80,21 @@ a {
   background-color: #fff;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  padding: 40px;
+  padding: 30px;
 }
 
 .container > p {
   margin-bottom: 30px;
+}
+
+#default-users {
+  margin-top: 20px;
+}
+
+#users-information {
+  width: 100%;
+  margin-top: 20px;
+  line-height: 1.5rem;
 }
 
 .login-register-input {
@@ -108,7 +127,7 @@ a {
   cursor: pointer;
 }
 
-.login-register-btn {
+.btn {
   width: 50%;
   background-color: #eee;
   padding: 10px 20px;
@@ -120,6 +139,11 @@ a {
 
 #register-btn {
   margin-top: 30px;
+}
+
+#exit-btn,
+#acknowledge-btn {
+  margin: 0;
 }
 
 .social-networks-login-register {
@@ -140,4 +164,20 @@ a {
   margin: 0 2px 50px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50px;
+}
+
+@media (width <= 480px) {
+  #remember-me-and-password-recovery-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 30px;
+  }
+
+  #remember-me-container {
+    display: flex;
+    margin-bottom: 15px;
+  }
 }

@@ -1,7 +1,9 @@
 // Define the necessary DOM elements
 const loginUserNameOrEmail = document.getElementsByName("login-username")[0];
 const loginPassword = document.getElementsByName("login-password")[0];
+const forgotPassword = document.getElementById("forgot-password");
 const loginButton = document.getElementById("login-btn");
+const loginFormInputs = document.getElementById("login-form-inputs");
 const registerUsername = document.getElementsByName("register-username")[0];
 const registerEmail = document.getElementsByName("register-email")[0];
 const registerPassword = document.getElementsByName("register-password")[0];
@@ -9,17 +11,23 @@ const registerPasswordValidate = document.getElementsByName(
   "register-password-validate"
 )[0];
 const registerButton = document.getElementById("register-btn");
+const registerFormInputs = document.getElementById("register-form-inputs");
 const googleLoginButton = document.getElementById("google-login");
 const linkedinLoginButton = document.getElementById("linkedin-login");
 const twitterLoginButton = document.getElementById("twitter-login");
 const googleRegisterButton = document.getElementById("google-register");
 const linkedinRegisterButton = document.getElementById("linkedin-register");
 const twitterRegisterButton = document.getElementById("twitter-register");
-const loginPage = document.getElementById("login-page");
-const registerPage = document.getElementById("register-page");
-const registerPageText = document.getElementById("register-page-text");
-const loginPageText = document.getElementById("login-page-text");
-
+const loginForm = document.getElementById("login-form");
+const registerForm = document.getElementById("register-form");
+const loginWelcomeForm = document.getElementById("login-welcome-form");
+const registerSuccessfulForm = document.getElementById(
+  "register-successful-form"
+);
+const registerFormText = document.getElementById("register-form-text");
+const loginFormText = document.getElementById("login-form-text");
+const exitButton = document.getElementById("exit-btn");
+const acknowledgeButton = document.getElementById("acknowledge-btn");
 const validEmailProviders = [
   "gmail.com",
   "yahoo.com",
@@ -31,6 +39,17 @@ const validEmailProviders = [
   "me.com",
   "mac.com",
 ];
+//Get users' information from local storage
+const storedUsers = localStorage.getItem("users");
+
+let userExist = false;
+let userRegistered = false;
+let successfulLoginMessage = document.getElementById(
+  "successful-login-message"
+);
+let successfulRegisterationMessage = document.getElementById(
+  "successful-registeration-message"
+);
 
 // Variable for storing users' information
 let users = [
@@ -53,30 +72,73 @@ let users = [
   },
 ];
 
-// Get users' information from local storage and set it as our users array if available
-const storedUsers = localStorage.getItem("users");
-
+// Set users' information as our users array if available
 if (storedUsers) users = JSON.parse(storedUsers);
 
 // Switches between login and registration forms
 function pageSwitch() {
   // Switches from login form to registration form
-  registerPageText.addEventListener("click", () => {
-    loginPage.className = "deactive";
-    registerPage.className = "active";
+  registerFormText.addEventListener("click", () => {
+    loginForm.className = "deactive";
+    registerForm.className = "active";
   });
 
   // Switches from registration form to login form
-  loginPageText.addEventListener("click", () => {
-    registerPage.className = "deactive";
-    loginPage.className = "active";
+  loginFormText.addEventListener("click", () => {
+    registerForm.className = "deactive";
+    loginForm.className = "active";
   });
+
+  // Switches from login form to login welcome form
+  if (userExist) {
+    loginForm.className = "deactive";
+    loginWelcomeForm.className = "active";
+  }
+
+  // Switches from login welcome form to login form
+  exitButton.addEventListener("click", () => {
+    loginWelcomeForm.className = "deactive";
+    loginForm.className = "active";
+
+    userExist = false;
+    loginFormInputs.reset();
+  });
+
+  // Switches from register form to successful register form
+  if (userRegistered) {
+    registerForm.className = "deactive";
+    registerSuccessfulForm.className = "active";
+  }
+
+  // Switches from successful register form to login form
+  acknowledgeButton.addEventListener("click", () => {
+    registerSuccessfulForm.className = "deactive";
+    loginForm.className = "active";
+
+    userRegistered = false;
+    registerFormInputs.reset();
+  });
+}
+
+// Displaying welcome message upon successful login
+function successfulLoginMessageText() {
+  // Retrieve the username of the logged-in user
+  const loggedInUser = users.find(
+    (user) =>
+      loginUserNameOrEmail.value === user.username ||
+      loginUserNameOrEmail.value === user.email
+  );
+
+  // Display successful login message
+  successfulLoginMessage.textContent = `${loggedInUser.username} عزیز، ورود شما موفقیت‌آمیز بود.`;
 }
 
 // Validates the login process
 function loginValidation() {
-  loginButton.addEventListener("click", () => {
-    let userExist = false;
+  loginButton.addEventListener("click", (event) => {
+    // Prevent default form submission when login button is clicked
+    event.preventDefault();
+    userExist = false;
 
     // Welcome message upon successful login
     users.forEach((user) => {
@@ -85,8 +147,9 @@ function loginValidation() {
           loginUserNameOrEmail.value === user.email) &&
         loginPassword.value === user.password
       ) {
-        alert("شما با موفقیت وارد حساب کاربری خود شدید.");
         userExist = true;
+        pageSwitch();
+        successfulLoginMessageText();
       }
     });
 
@@ -97,6 +160,10 @@ function loginValidation() {
       alert("لطفا رمز عبور خود را وارد کنید.");
     else if (!userExist) alert("متاسفانه اطلاعات وارد شده، نادرست است.");
   });
+
+  forgotPassword.addEventListener("click", () =>
+    alert("شما به صفحه بازیابی رمز عبور، هدایت می‌شوید.")
+  );
 }
 
 // Social networks login
@@ -110,6 +177,11 @@ function loginUsingSocialNetworks() {
   twitterLoginButton.addEventListener("click", () => {
     alert("شما به صفحه ورود از طریق اکانت توییتر خود، هدایت می‌شوید.");
   });
+}
+
+// Displaying successful registration message
+function successfulRegisterationMessageText() {
+  successfulRegisterationMessage.textContent = `${registerUsername.value} عزیز، ثبت نام شما با موفقیت انجام شد.`;
 }
 
 // Validates username input for user registration
@@ -196,7 +268,10 @@ function registerPasswordValidation() {
 
 // Validates the complete registration process
 function registrationValidation() {
-  registerButton.addEventListener("click", () => {
+  registerButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    userRegistered = false;
+
     if (registerUsernameValidation())
       if (registerEmailValidation())
         if (registerPasswordValidation()) {
@@ -207,10 +282,13 @@ function registrationValidation() {
             password: registerPassword.value,
           });
 
+          userRegistered = true;
+
           // Set the users array in local storage
           localStorage.setItem("users", JSON.stringify(users));
 
-          alert("ثبت نام شما با موفقیت انجام شد.");
+          pageSwitch();
+          successfulRegisterationMessageText();
         }
   });
 }
