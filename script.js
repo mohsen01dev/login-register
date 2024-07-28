@@ -4,6 +4,7 @@ const loginPassword = document.getElementsByName("login-password")[0];
 const forgotPassword = document.getElementById("forgot-password");
 const loginButton = document.getElementById("login-btn");
 const loginFormInputs = document.getElementById("login-form-inputs");
+const resetButton = document.getElementsByClassName("reset-btn")[0];
 const registerUsername = document.getElementsByName("register-username")[0];
 const registerEmail = document.getElementsByName("register-email")[0];
 const registerPassword = document.getElementsByName("register-password")[0];
@@ -306,9 +307,46 @@ function registerUsingSocialNetworks() {
   });
 }
 
+function reset() {
+  resetButton.addEventListener("click", () => {
+    localStorage.clear();
+    loginFormInputs.reset();
+    registerFormInputs.reset();
+
+    userExist = false;
+    userRegistered = false;
+
+    users = [
+      {
+        username: "Mohsen",
+        email: "mohsen@gmail.com",
+        password: "Abc@1234",
+      },
+
+      {
+        username: "Mohammad",
+        email: "mohammad@gmail.com",
+        password: "aBc@1234",
+      },
+
+      {
+        username: "Hassan",
+        email: "hassan@gmail.com",
+        password: "abC@1234",
+      },
+    ];
+
+    registerForm.className = "deactive";
+    loginWelcomeForm.className = "deactive";
+    registerSuccessfulForm.className = "deactive";
+    loginForm.className = "active";
+  });
+}
+
 // Calling the functions
 loginValidation();
 loginUsingSocialNetworks();
 pageSwitch();
 registrationValidation();
 registerUsingSocialNetworks();
+reset();
