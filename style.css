@@ -148,7 +148,8 @@ a {
 }
 
 #exit-btn,
-#acknowledge-btn {
+#acknowledge-btn,
+#ps-back-btn {
   margin: 0;
 }
 
@@ -185,6 +186,39 @@ a {
 .reset-btn {
   width: clamp(320px, 90svw, 480px);
   margin-top: 20px;
+}
+
+#fp-inputs {
+  width: 100%;
+}
+
+#fp-text {
+  line-height: 1.5rem;
+}
+
+.fp-btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#fp-validate-btn,
+#fp-password-change-btn {
+  width: 59%;
+}
+
+#fp-back-btn,
+#fp-back-btn-2 {
+  width: 36%;
+  text-align: center;
+}
+
+#fp-validate-btn,
+#fp-back-btn,
+#fp-back-btn-2,
+#fp-password-change-btn {
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 
 @media (width <= 480px) {

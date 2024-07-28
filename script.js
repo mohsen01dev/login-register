@@ -1,9 +1,17 @@
-// Define the necessary DOM elements
+// ----- Define the necessary DOM elements -----
+// Variables for login form elements
 const loginUserNameOrEmail = document.getElementsByName("login-username")[0];
 const loginPassword = document.getElementsByName("login-password")[0];
 const forgotPassword = document.getElementById("forgot-password");
 const loginButton = document.getElementById("login-btn");
 const loginFormInputs = document.getElementById("login-form-inputs");
+const googleLoginButton = document.getElementById("google-login");
+const linkedinLoginButton = document.getElementById("linkedin-login");
+const twitterLoginButton = document.getElementById("twitter-login");
+const loginForm = document.getElementById("login-form");
+const registerFormText = document.getElementById("register-form-text");
+
+// Variables for registration form elements
 const resetButton = document.getElementsByClassName("reset-btn")[0];
 const registerUsername = document.getElementsByName("register-username")[0];
 const registerEmail = document.getElementsByName("register-email")[0];
@@ -13,22 +21,44 @@ const registerPasswordValidate = document.getElementsByName(
 )[0];
 const registerButton = document.getElementById("register-btn");
 const registerFormInputs = document.getElementById("register-form-inputs");
-const googleLoginButton = document.getElementById("google-login");
-const linkedinLoginButton = document.getElementById("linkedin-login");
-const twitterLoginButton = document.getElementById("twitter-login");
 const googleRegisterButton = document.getElementById("google-register");
 const linkedinRegisterButton = document.getElementById("linkedin-register");
 const twitterRegisterButton = document.getElementById("twitter-register");
-const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
+const loginFormText = document.getElementById("login-form-text");
+
+// Variables for welcome message elements
 const loginWelcomeForm = document.getElementById("login-welcome-form");
+const exitButton = document.getElementById("exit-btn");
+
+// Variables for registration successful message elements
 const registerSuccessfulForm = document.getElementById(
   "register-successful-form"
 );
-const registerFormText = document.getElementById("register-form-text");
-const loginFormText = document.getElementById("login-form-text");
-const exitButton = document.getElementById("exit-btn");
 const acknowledgeButton = document.getElementById("acknowledge-btn");
+
+// Variables for forgot password form elements
+const fpUsername = document.getElementsByName("fp-username")[0];
+const fpText = document.getElementById("fp-text");
+const fpPassword = document.getElementsByName("fp-password")[0];
+const fpPasswordValidate = document.getElementsByName(
+  "fp-password-validate"
+)[0];
+const fpPasswordChangeDiv = document.getElementById("fp-password-change-div");
+const fpValidateButton = document.getElementById("fp-validate-btn");
+const fpBackButton = document.getElementById("fp-back-btn");
+const fpBackButton2 = document.getElementById("fp-back-btn-2");
+const fpPasswordChangeButton = document.getElementById(
+  "fp-password-change-btn"
+);
+const fpInputs = document.getElementById("fp-inputs");
+const forgotPasswordForm = document.getElementById("forgot-password-form");
+
+// Variables for password change form elements
+const passwordChangeForm = document.getElementById("password-change-form");
+const psBackButton = document.getElementById("ps-back-btn");
+
+// Variable for email provider validation
 const validEmailProviders = [
   "gmail.com",
   "yahoo.com",
@@ -40,19 +70,29 @@ const validEmailProviders = [
   "me.com",
   "mac.com",
 ];
-//Get users' information from local storage
+
+// Variable to get and store users' information from local storage
 const storedUsers = localStorage.getItem("users");
 
+// Variables for checking status
 let userExist = false;
 let userRegistered = false;
+let fpUserExist = false;
+let fpPasswordChanged = false;
+
+// Variables for success messages
 let successfulLoginMessage = document.getElementById(
   "successful-login-message"
 );
 let successfulRegisterationMessage = document.getElementById(
   "successful-registeration-message"
 );
+let successfulPasswordChangeMessage = document.getElementById(
+  "successful-password-change-message"
+);
 
-// Variable for storing users' information
+// Variables for storing users' information
+let changedPasswordUser;
 let users = [
   {
     username: "Mohsen",
@@ -73,6 +113,7 @@ let users = [
   },
 ];
 
+// ----- Define the necessary functions -----
 // Set users' information as our users array if available
 if (storedUsers) users = JSON.parse(storedUsers);
 
@@ -119,6 +160,53 @@ function pageSwitch() {
     userRegistered = false;
     registerFormInputs.reset();
   });
+
+  // Switches from login form to forgot password form
+  forgotPassword.addEventListener("click", () => {
+    loginForm.className = "deactive";
+    forgotPasswordForm.className = "active";
+  });
+
+  // Switches from forgot password form to login form
+  fpBackButton.addEventListener("click", () => {
+    forgotPasswordForm.className = "deactive";
+    loginForm.className = "active";
+  });
+
+  // Switches from secondary forgot password form to primary forgot password form
+  fpBackButton2.addEventListener("click", () => {
+    fpPasswordChangeDiv.className = "deactive";
+    fpValidateButton.className = "btn active";
+    fpBackButton.className = "btn active";
+
+    fpPassword.value = "";
+    fpPasswordValidate.value = "";
+
+    fpUserExist = false;
+    fpText.textContent = "لطفا نام کاربری یا ایمیل خود را وارد نمائید.";
+  });
+
+  // Switches from secondary forgot password form to successful password change form
+  if (fpPasswordChanged) {
+    forgotPasswordForm.className = "deactive";
+    passwordChangeForm.className = "active";
+  }
+
+  // Switches from successful password change form to login form
+  psBackButton.addEventListener("click", () => {
+    fpPasswordChangeDiv.className = "deactive";
+    passwordChangeForm.className = "deactive";
+    loginForm.className = "active";
+
+    fpValidateButton.className = "btn active";
+    fpBackButton.className = "btn active";
+
+    fpInputs.reset();
+
+    fpUserExist = false;
+    fpPasswordChanged = false;
+    fpText.textContent = "لطفا نام کاربری یا ایمیل خود را وارد نمائید.";
+  });
 }
 
 // Displaying welcome message upon successful login
@@ -139,6 +227,8 @@ function loginValidation() {
   loginButton.addEventListener("click", (event) => {
     // Prevent default form submission when login button is clicked
     event.preventDefault();
+
+    // Checks if the entered username exists
     userExist = false;
 
     // Welcome message upon successful login
@@ -161,10 +251,6 @@ function loginValidation() {
       alert("لطفا رمز عبور خود را وارد کنید.");
     else if (!userExist) alert("متاسفانه اطلاعات وارد شده، نادرست است.");
   });
-
-  forgotPassword.addEventListener("click", () =>
-    alert("شما به صفحه بازیابی رمز عبور، هدایت می‌شوید.")
-  );
 }
 
 // Social networks login
@@ -178,11 +264,6 @@ function loginUsingSocialNetworks() {
   twitterLoginButton.addEventListener("click", () => {
     alert("شما به صفحه ورود از طریق اکانت توییتر خود، هدایت می‌شوید.");
   });
-}
-
-// Displaying successful registration message
-function successfulRegisterationMessageText() {
-  successfulRegisterationMessage.textContent = `${registerUsername.value} عزیز، ثبت نام شما با موفقیت انجام شد.`;
 }
 
 // Validates username input for user registration
@@ -225,7 +306,7 @@ function registerEmailValidation() {
   )
     alert("لطفا از یک ایمیل معتبر استفاده نمائید.");
   // Checks if the email is already taken
-  else if (users.some((user) => user.email === registerEmail.value))
+  else if (users.some((user) => registerEmail.value === user.email))
     alert("این ایمیل قبلا ثبت شده است.");
   else return true;
 }
@@ -238,7 +319,6 @@ function registerPasswordValidation() {
   const digitRegex = /[0-9]/;
   const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
-  // Checks the password
   // Checks if password input is empty
   if (registerPassword.value === "")
     alert("لطفا یک رمز عبور دلخواه وارد نمائید.");
@@ -258,8 +338,7 @@ function registerPasswordValidation() {
     alert(
       "رمز عبور باید حداقل شامل یک حرف بزرگ انگلیسی، یک حرف کوچک انگلیسی، یک عدد و یک کاراکتر ویژه باشد."
     );
-  // Checks the password validation
-  // Checks if password validation input is empty
+  // Checks if password validation input is empty and matches the password
   else if (registerPasswordValidate.value === "")
     alert("لطفا تایید رمز عبور را وارد نمائید.");
   else if (registerPassword.value !== registerPasswordValidate.value)
@@ -271,8 +350,11 @@ function registerPasswordValidation() {
 function registrationValidation() {
   registerButton.addEventListener("click", (event) => {
     event.preventDefault();
+
+    // Variable to check if the entered username exists
     userRegistered = false;
 
+    // Checks if every input is correctly filled
     if (registerUsernameValidation())
       if (registerEmailValidation())
         if (registerPasswordValidation()) {
@@ -285,11 +367,12 @@ function registrationValidation() {
 
           userRegistered = true;
 
-          // Set the users array in local storage
+          // Updates the users array in local storage
           localStorage.setItem("users", JSON.stringify(users));
 
+          // Displaying successful registration message
           pageSwitch();
-          successfulRegisterationMessageText();
+          successfulRegisterationMessage.textContent = `${registerUsername.value} عزیز، ثبت نام شما با موفقیت انجام شد.`;
         }
   });
 }
@@ -307,13 +390,120 @@ function registerUsingSocialNetworks() {
   });
 }
 
+// Validates username input for forgot password
+function fpUsernameValidation() {
+  fpValidateButton.addEventListener("click", (event) => {
+    // Prevent default form submission when button is clicked
+    event.preventDefault();
+
+    // Checks if the entered username exists
+    fpUserExist = false;
+
+    // Checks if the input is empty or has a correct value
+    users.forEach((user) => {
+      if (
+        fpUsername.value === user.username ||
+        fpUsername.value === user.email
+      ) {
+        fpUserExist = true;
+        fpValidateButton.className = "btn deactive";
+        fpBackButton.className = "btn deactive";
+        fpPasswordChangeDiv.className = "active";
+
+        fpText.textContent =
+          "لطفا رمز عبور جدید و تایید رمز عبور جدید را وارد نمائید.";
+
+        // Get the username of the user who changed their password
+        changedPasswordUser = users.find(
+          (user) =>
+            fpUsername.value === user.username ||
+            fpUsername.value === user.email
+        );
+      }
+    });
+
+    if (fpUsername.value === "")
+      alert("لطفا نام کاربری یا ایمیل خود را وارد کنید.");
+    else if (!fpUserExist)
+      alert("متاسفانه نام کاربری یا ایمیل وارد شده، صحیح نمی‌باشد.");
+  });
+}
+
+// Validates and confirms the new password for forgot password
+function fpPasswordValidation() {
+  fpPasswordChangeButton.addEventListener("click", (event) => {
+    // Prevent default form submission when button is clicked
+    event.preventDefault();
+
+    // Variables for regex patterns to check new password
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const digitRegex = /[0-9]/;
+    const symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+    // Checks if the password has changed
+    fpPasswordChanged = false;
+
+    // Checks if new password input is empty
+    if (fpPassword.value === "")
+      alert("لطفا یک رمز عبور جدید دلخواه وارد نمائید.");
+    // Checks new password input length
+    else if (fpPassword.value.length < 8 || fpPassword.value.length > 24)
+      alert("رمز عبور جدید کمتر از 8 و بیشتر از 24 حرف نمی‌تواند باشد.");
+    // Checks if new password contains "upper case", "lower case", "numeric" and "special characters or symbols"
+    else if (
+      !uppercaseRegex.test(fpPassword.value) ||
+      !lowercaseRegex.test(fpPassword.value) ||
+      !digitRegex.test(fpPassword.value) ||
+      !symbolRegex.test(fpPassword.value)
+    )
+      alert(
+        "رمز عبور جدید باید حداقل شامل یک حرف بزرگ انگلیسی، یک حرف کوچک انگلیسی، یک عدد و یک کاراکتر ویژه باشد."
+      );
+    // Checks if the new password is the same as the previous one
+    else if (fpPassword.value === changedPasswordUser.password)
+      alert("رمز عبور جدید باید با رمز عبور قبلی متفاوت باشد.");
+    // Checks if new password validation input is empty and matches the new password
+    else if (fpPasswordValidate.value === "")
+      alert("لطفا تایید رمز عبور جدید را وارد نمائید.");
+    else if (fpPassword.value !== fpPasswordValidate.value)
+      alert("رمز عبور جدید و تایید رمز عبور جدید، یکسان نمی‌باشند.");
+    // Updates the user's password
+    else {
+      users.forEach((user) => {
+        if (
+          fpUsername.value === user.username ||
+          fpUsername.value === user.email
+        )
+          fpPasswordChanged = true;
+        user.password = fpPassword.value;
+      });
+
+      // Updates the users array in local storage
+      localStorage.setItem("users", JSON.stringify(users));
+
+      // Showing successful password changed message
+      pageSwitch();
+      successfulPasswordChangeMessage.textContent = `${changedPasswordUser.username} عزیز، رمز عبور شما با موفقیت تغییر یافت.`;
+    }
+  });
+}
+
+// Handles password change process
+function fpChangePassword() {
+  fpUsernameValidation();
+  fpPasswordValidation();
+}
+
 function reset() {
   resetButton.addEventListener("click", () => {
     localStorage.clear();
     loginFormInputs.reset();
     registerFormInputs.reset();
+    fpInputs.reset();
 
     userExist = false;
+    fpUserExist = false;
     userRegistered = false;
 
     users = [
@@ -339,14 +529,21 @@ function reset() {
     registerForm.className = "deactive";
     loginWelcomeForm.className = "deactive";
     registerSuccessfulForm.className = "deactive";
+    forgotPasswordForm.className = "deactive";
+    fpPasswordChangeDiv.className = "deactive";
+    passwordChangeForm.className = "deactive";
+
     loginForm.className = "active";
+    fpValidateButton.className = "btn active";
+    fpBackButton.className = "btn active";
   });
 }
 
 // Calling the functions
 loginValidation();
 loginUsingSocialNetworks();
-pageSwitch();
 registrationValidation();
 registerUsingSocialNetworks();
+fpChangePassword();
+pageSwitch();
 reset();

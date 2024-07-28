@@ -133,19 +133,96 @@
     <section class="deactive" id="login-welcome-form">
       <h1>خوش آمدید</h1>
 
+      <!-- Welcome message container -->
       <div class="container">
         <p id="successful-login-message"></p>
         <button class="btn" id="exit-btn">خروج</button>
       </div>
     </section>
 
-    <!-- Display registration successful message -->
+    <!-- Display successful registration message -->
     <section class="deactive" id="register-successful-form">
       <h1>ثبت نام موفق</h1>
 
+      <!-- Registration successful message container -->
       <div class="container">
         <p id="successful-registeration-message"></p>
         <button class="btn" id="acknowledge-btn">متوجه شدم</button>
+      </div>
+    </section>
+
+    <!-- Forgot password form -->
+    <section class="deactive" id="forgot-password-form">
+      <h1>بازیابی رمز عبور</h1>
+
+      <!-- Forgot password form container -->
+      <div class="container">
+        <!-- Forgot password form inputs and button -->
+        <p id="fp-text">لطفا نام کاربری یا ایمیل خود را وارد نمائید.</p>
+
+        <form action="#" id="fp-inputs">
+          <input
+            type="text"
+            name="fp-username"
+            class="login-register-input"
+            placeholder="نام کاربری یا ایمیل"
+          />
+          <div class="deactive" id="fp-password-change-div">
+            <input
+              type="password"
+              name="fp-password"
+              class="login-register-input"
+              placeholder="رمز عبور جدید"
+            />
+            <input
+              type="password"
+              name="fp-password-validate"
+              class="login-register-input"
+              placeholder="تایید رمز عبور جدید"
+            />
+
+            <div class="fp-btns">
+              <input
+                type="submit"
+                value="تغییر رمز عبور"
+                class="btn"
+                id="fp-password-change-btn"
+              />
+              <input
+                type="button"
+                value="بازگشت"
+                class="btn"
+                id="fp-back-btn-2"
+              />
+            </div>
+          </div>
+
+          <div class="fp-btns">
+            <input
+              type="submit"
+              value="احراز هویت"
+              class="btn active"
+              id="fp-validate-btn"
+            />
+            <input
+              type="button"
+              value="بازگشت"
+              class="btn active"
+              id="fp-back-btn"
+            />
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Display successful password change message -->
+    <section class="deactive" id="password-change-form">
+      <h1>بازیابی موفق رمز عبور</h1>
+
+      <!-- Password change message container -->
+      <div class="container">
+        <p id="successful-password-change-message"></p>
+        <button class="btn" id="ps-back-btn">بازگشت</button>
       </div>
     </section>
 
